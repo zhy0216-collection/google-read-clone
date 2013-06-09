@@ -7,8 +7,8 @@ from datetime import datetime as dt
 from conure.libs.db import db
 
 class Validator(object):
-    email       = db.StringField(required = True)
-    password    = db.StringField(required = True)
+    email       = db.StringField(required=True)
+    password    = db.StringField(required=True)
 
     @classmethod
     def is_valid(cls,email,password):
@@ -23,7 +23,8 @@ class User(Validator):
     setting     = db.ReferenceField("UserSetting")
 
 class UserSetting(object):
-    pass
+    theme       = db.StringField(default="google")
+
 
 class BasicUser(db.Document,User):
     type        = "basic"
