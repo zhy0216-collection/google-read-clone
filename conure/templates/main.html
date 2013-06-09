@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Conureader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/static/favicon.ico" rel="SHORTCUT ICON">
+    <!-- css styles -->
+    <link href="static/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="static/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="static/lib/fontawesome/css/font-awesome.css" rel="stylesheet">
+        <link href="static/lib/todc-bootstrap.css" rel="stylesheet">
+    <link href="static/main.css" rel="stylesheet">
+  </head>
+
+  <body>
+    {%include 'header.html'%}
+
+    <div class="alert" id="notify-message">
+    </div>
+
+    <div id="content">
+        <div class="row-fluid">
+          <div id='nav'class="span3">
+            {%include "left-navi-bar.html"%}
+          </div><!--end of  span0-->
+
+
+          <div id="reader-content" class="span9">
+            <div class='row-fluid'>
+                <div id="sub-shower"class='span8'>
+                    <span class='muted'>New in your subscriptions</span>
+                    <div class='divider'></div>
+                {%for i in range(10)%}
+                    <div class="sub-item">
+                        <h3 class='muted'><a class="blue-link" href="">方舟子的BLOG <span class="normal">(1)</span></a></h3>
+                        <h5><a href="" class="keep-link">云南白药的秘密</a></h5>
+                        <a class="keep-link"href=""><p>云南白药的秘密云南白药的秘密云南白药的秘密云南白药的秘密云南白药的秘密
+                        云南白药的秘密云南白药的秘密云南白药的秘密云南白药的秘密云南白药的秘密
+                        云南白药的秘密云南白药的秘密云南白药的秘密云南白药的秘密云南白药的秘密
+                        </p></a>
+                    </div>
+                {%endfor%}
+                
+                {%include "footer.html"%}
+                
+                </div>
+
+                <div id="addtion_bar" class='span4' style="padding-right:10px;">
+                    <span class='muted'>About the project</span>
+                    <div class='divider' style="margin-right: 10px;"></div>
+                    <div class='muted'>
+                      some content here some content here some content here ss some content here
+                    </div>
+                </div>
+            </div>
+
+          </div><!--end of  span conent-->
+          
+        </div>
+
+
+    </div>
+
+
+  </body>
+
+<script src="static/lib/jquery-1.9.1.js"></script>
+<script src="static/lib/bootstrap/js/bootstrap.js"></script>
+<script src="static/lib/holder.js"></script>
+<script src="static/popover.js"></script>
+<script src="static/main.js"></script>
+
+</html>

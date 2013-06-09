@@ -1,0 +1,25 @@
+<a id="subsribe-btn"class='btn btn-danger' data-toggle="popover" data-html=true data-placement="bottom" data-content='{%include "include/subsribe-btn.html"%}' href="javascript:void(0)" onclick="subBtnToggle($(this));">SUBSCRIBE</a>
+
+<ul class="nav nav-list scroll" id="nav-scroll">
+  <li class="nav-header"> </li>
+  <li id="home" class="active"><a href="javascript:void(0)" onclick="active('home')">Home</a></li>
+  <li id="about"><a href="javascript:void(0)" onclick="active('about')">About</a></li>
+   <li class="divider"></li>
+
+   <li id="subscription"class='li1'><a href="javascript:void(0)" onclick="active('subscription')"><i class='icon-caret-down unfold'></i><strong>Subscriptions</strong></a>
+        <ul class='nav nav-list unstyled subnav'>
+            {%for i in range(30)%}
+            <li id='_sub_news'class="li2"><a href="javascript:void(0)" onclick="active('_sub_news')"><i class='icon-caret-down unfold'></i>
+                <i class='icon-folder-open icon-large'></i>
+                <strong>news <small class='muted normal'>(1000+)</small></strong>
+                </a>
+                <ul class='nav nav-list unstyled subnav'>
+                    <li id="test"class="li3"><a href="javascript:void(0)" onclick="active('test')"><img src='holder.js/20x20'> <strong>ZGood</strong></a>
+
+                </ul>
+
+            </li>
+            {%endfor%}
+        </ul>
+   </li>
+</ul>
