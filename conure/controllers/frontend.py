@@ -6,13 +6,18 @@ from flask import url_for, \
     render_template, session,jsonify, abort
 
 from conure.application import app
+from conure.model import Feed,FeedSite
 
 
 @app.route("/")
 def main():
-    return render_template( 'main.html')
+    sites       = FeedSite.objects()
 
-
+    return render_template( 'main.html',sites=sites)
+@app.route("/fav_icon")
+def site_fav():
+    site_link   = request.args.get("site_link",None)
+    pass
 
 
 

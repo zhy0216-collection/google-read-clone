@@ -20,9 +20,32 @@ class Validator(object):
         return cls.objects(email=email,password=password).first()
 
 class User(Validator):
+    info        = db.ReferenceField("UserInfo")
     setting     = db.ReferenceField("UserSetting")
+    type        = "user"
 
-class UserSetting(object):
+    @classmethod
+    def get_user_by_id(cls,id):
+        return cls.objects(id=id).first()
+        
+    @classmethod
+    def get_user_by_nickname(classmethod,nickname):
+        return cls.objects(setting__nickname=nickname).first()
+
+    def get_unread_feeds(self):
+        pass
+
+    def to_dict(self):
+        return {"id":str(self.id),
+                "nickname":self.info.nickname,
+                "type":self.type
+        }
+
+class UserInfo(db.EmbeddedDocument):
+    nickname    = db.StringField(required=True)
+
+
+class UserSetting(db.EmbeddedDocument):
     theme       = db.StringField(default="google")
 
 
