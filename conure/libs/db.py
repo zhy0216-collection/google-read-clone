@@ -2,7 +2,7 @@
 
 from flask.ext.mongoengine import MongoEngine
 
-from conure.config import conf
+from conure.config import config as conf
 
 def get_db(database=None):
     if not database:

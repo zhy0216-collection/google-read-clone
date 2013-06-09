@@ -4,9 +4,10 @@ from datetime import datetime, timedelta
 
 from flask.ext.script import Manager
 
-from ezlog2 import app
+from conure.config import config
+from conure.application import app
 
-
+manager = Manager(app)
 
 @manager.command
 def clean_db():
@@ -14,3 +15,13 @@ def clean_db():
     conn = MongoClient(config.MONGODB_HOST, config.MONGODB_PORT)
     conn.drop_database(config.MONGODB_DB)
     conn.close()
+    
+@manager.command
+def make_guest():
+    from conure.model import BasicUser,UserInfo
+    b_user    = BasicUser(email="guest",password="guest",info=UserInfo())
+    b_user.info.nickname = "Guest"
+    b_user.save()
+
+if __name__ == "__main__":
+    manager.run()
