@@ -71,6 +71,7 @@ padding: 10px 0;
 
 #nav{
 padding-left: 44px;
+padding-right: 24px;
 }
 .nav-list{
 margin-left: -44px;
@@ -129,7 +130,7 @@ padding-top: 5px;
 #setting-btn-menu{
 margin-right: 33px;
 }
-#subsribe-btn{
+#subsribe-btn,#donate-btn{
 font-size: 11px;
 }
 #sub-shower{
@@ -194,6 +195,22 @@ background: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.3)),to
 -webkit-mask-box-image: -webkit-gradient(linear,left top,right top,color-stop(0.0,rgba(0,0,0,0)),color-stop(0.5,rgba(0,0,0,.8)),color-stop(1.0,rgba(0,0,0,0)));
 background-image: -moz-radial-gradient(top,ellipse farthest-side,rgba(0,0,0,.3),rgba(0,0,0,0));
 }
+
+#scrollable-sections-top-shadow {
+margin-top: 5px;
+margin-right: -20px;
+margin-left: -45px;
+opacity: 0;
+height: 8px;
+position: relative;
+border-top: 1px solid #ebebeb;
+border-top: 1px solid rgba(0,0,0,0.4);
+background: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,.3)),to(rgba(0,0,0,0)));
+-webkit-mask-box-image: -webkit-gradient(linear,left top,right top,color-stop(0.0,rgba(0,0,0,0)),color-stop(0.5,rgba(0,0,0,.8)),color-stop(1.0,rgba(0,0,0,0)));
+background-image: -moz-radial-gradient(top,ellipse farthest-side,rgba(0,0,0,.3),rgba(0,0,0,0));
+}
+
+
 
 .normal{
     font-weight: normal;

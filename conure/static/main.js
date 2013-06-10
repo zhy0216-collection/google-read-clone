@@ -7,6 +7,13 @@ $(function () {
     $('#nav-scroll').height(max_height - 30);
     $('#reader-content').height(max_height);
     
+    $('#nav-scroll').scroll(function() {
+      if ($(this).scrollTop()>0){
+        $("#scrollable-sections-top-shadow").css("opacity","1.3");
+      }else{
+        $("#scrollable-sections-top-shadow").css("opacity","0");
+      }
+    });
     
     $('.li1>a .unfold').click(function(e){
         //killevent(e);
