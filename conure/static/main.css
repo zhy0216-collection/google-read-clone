@@ -58,6 +58,9 @@ font-size: 20px;
 font-weight: normal;
 margin-left: 0px;
 }
+#logo_sub{
+    font-size:12px;
+}
 
 #notify-message{
 position: absolute;
