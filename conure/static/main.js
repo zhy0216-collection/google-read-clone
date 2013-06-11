@@ -15,6 +15,12 @@ $(function () {
       }
     });
     
+    // $(document).on( 'clickoutside', "#nav .popover",function(event) {
+      // console.log("outside");
+      // $('#subsribe-btn').popover('hide');
+    // });
+    
+    
     $('.li1>a .unfold').click(function(e){
         //killevent(e);
         var target = $(e.target);
