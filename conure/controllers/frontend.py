@@ -19,7 +19,11 @@ def site_fav():
     site_link   = request.args.get("site_link",None)
     pass
 
-
+@app.route("/logout")
+def logout():
+    if "user" in session:
+        session.pop("user")
+    return redirect(url_for("main"))
 
 
 

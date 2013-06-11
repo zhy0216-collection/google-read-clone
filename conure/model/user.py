@@ -27,6 +27,10 @@ class User(Validator):
     type            = "user"
 
 
+    @property
+    def nickname(self):
+        return self.info.nickname
+    
     @classmethod
     def get_user_by_id(cls,id):
         return cls.objects(id=id).first()
