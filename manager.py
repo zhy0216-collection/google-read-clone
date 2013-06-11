@@ -19,10 +19,19 @@ def clean_db():
 @manager.command
 def make_guest():
     from conure.model import BasicUser,UserInfo
-    b_user    = BasicUser(email="guest",password="guest",info=UserInfo())
+    b_user    = BasicUser(email="guest",
+                          password="guest",
+                          info=UserInfo())
     b_user.info.nickname = "Guest"
     b_user.save()
-    b_user.create_folder("Uncategoried")
+    f         = b_user.create_folder("Uncategoried")
+    b_user.default_folder = f
+    b_user.save()
+    
+@manager.command
+def test_init():
+    clean_db()
+    make_guest()
 
 if __name__ == "__main__":
     manager.run()

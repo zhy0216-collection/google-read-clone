@@ -136,6 +136,10 @@ margin-right: 33px;
 #subsribe-btn,#donate-btn{
 font-size: 11px;
 }
+#donate-btn{
+margin-right: 8px;
+}
+
 #sub-shower{
     margin-left:0px;
 }

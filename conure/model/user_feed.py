@@ -14,7 +14,7 @@ from .user import UserAccesser
 # for only for view, ignore at first
 class FeedFolder(db.Document,UserAccesser):
     name        = db.StringField(required=True)
-    feed_list   = db.ListField(db.ReferenceField("FeedSite"))
+    site_list   = db.ListField(db.ReferenceField("FeedSite"))
     has_open    = db.BooleanField(default=False)
     
     meta = {

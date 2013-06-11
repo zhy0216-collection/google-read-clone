@@ -5,6 +5,7 @@ import hashlib
 from datetime import datetime as dt
 
 from conure.libs.db import db
+from .feed import FeedSite,Feed
 
 class Validator(object):
     email       = db.StringField(required=True)
@@ -20,9 +21,10 @@ class Validator(object):
         return cls.objects(email=email,password=password).first()
 
 class User(Validator):
-    info        = db.EmbeddedDocumentField("UserInfo")
-    setting     = db.ReferenceField("UserSetting")
-    type        = "user"
+    info            = db.EmbeddedDocumentField("UserInfo")
+    setting         = db.ReferenceField("UserSetting")
+    default_folder  = db.ReferenceField("FeedFolder")
+    type            = "user"
 
 
     @classmethod
@@ -32,12 +34,19 @@ class User(Validator):
     @classmethod
     def get_user_by_nickname(cls,nickname):
         return cls.objects(info__nickname=nickname).first()
+        
+    def add_feed(self,feed_url):
+        fs  = FeedSite.add_from_feed_url(feed_url,parse_immediately =True)
+        self.default_folder.site_list.append(site_list)
+        self.default_folder.save()
+        return site_list
 
     def create_folder(self,folder_name):
         from user_feed import FeedFolder
         ff          = FeedFolder(name=folder_name)
         ff.userid   = self.id
         ff.safe_save()
+        return ff
 
     def get_all_folders(self):
         from user_feed import FeedFolder
@@ -70,6 +79,10 @@ class UserSetting(db.Document):
 
 class BasicUser(db.Document,User):
     type        = "basic"
+    
+    
+    def upgrade(self):
+        pass
 
     def subscribe(self,site):
         pass
