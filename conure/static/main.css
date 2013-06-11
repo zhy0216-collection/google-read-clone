@@ -139,6 +139,8 @@ font-size: 11px;
 #sub-shower{
     margin-left:0px;
 }
+
+#sub-shower .sub-item{border-left: 1px white solid;}
 .popover-content{
     width: 300px;
 }

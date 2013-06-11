@@ -1,0 +1,12 @@
+{% macro make_folder(folder) -%}
+<li id='_sub_news'class="li2"><a href="javascript:void(0)" onclick="active('_sub_news')"><i class='icon-caret-down unfold'></i>
+  <i class='icon-folder-open icon-large'></i>
+  <strong>{{folder.name}} <small class='muted normal'>({{folder.unread_feeds_counter}})</small></strong>
+  </a>
+{#
+  <ul class='nav nav-list unstyled subnav'>
+      <li id="test"class="li3"><a href="javascript:void(0)" onclick="active('test')"><img data-src='holder.js/20x20'> <strong>ZGood</strong></a>
+  </ul>
+#}
+  </li>
+{%- endmacro %}

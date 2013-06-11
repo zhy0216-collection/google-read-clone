@@ -15,7 +15,8 @@ from .user import UserAccesser
 class FeedFolder(db.Document,UserAccesser):
     name        = db.StringField(required=True)
     feed_list   = db.ListField(db.ReferenceField("FeedSite"))
-
+    has_open    = db.BooleanField(default=False)
+    
     meta = {
         'allow_inheritance': False,
         'index_types': False,
@@ -39,7 +40,7 @@ class FeedFolder(db.Document,UserAccesser):
         pass
     @property
     def unread_feeds_counter(self):
-        pass
+        return 0
 
 
 #user <-> feeds, means use start a feed;
