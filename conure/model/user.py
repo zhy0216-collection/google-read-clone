@@ -41,9 +41,9 @@ class User(Validator):
         
     def add_feed(self,feed_url):
         fs  = FeedSite.add_from_feed_url(feed_url,parse_immediately =True)
-        self.default_folder.site_list.append(site_list)
+        self.default_folder.site_list.append(fs)
         self.default_folder.save()
-        return site_list
+        return fs
 
     def create_folder(self,folder_name):
         from user_feed import FeedFolder

@@ -1,6 +1,4 @@
-﻿var current_active = "home";
-
-
+﻿
 $(function () {
     var height = $(window).height();
     var max_height = height-100;
@@ -66,11 +64,14 @@ $(function () {
     
 });
 
-function active(nodeid){
-    $('#'+current_active).removeClass('active');
-    current_active = nodeid;
-    $('#'+nodeid).addClass('active');
-}
+var active = (function(){
+  var current_active = "home";
+  return function(nodeid){
+      $('#'+current_active).removeClass('active');
+      current_active = nodeid;
+      $('#'+nodeid).addClass('active');
+  }
+})()
 
 function li1fold(node){
     node.removeClass('unfold');
@@ -146,21 +147,41 @@ function killevent(e){
     e.preventDefault();
 }
 
-var subBtnShowPopover = false;
-function subBtnToggle(node){
-    if(!subBtnShowPopover){
-        subBtnShowPopover = true;
-        node.popover('show');
-        $('.popover').css('left','44px');
-    }else{
-        subBtnShowPopover = false;
-        node.popover('destroy');
-    }
-    
-}
+
+var subBtnToggle = (function(){
+  var subBtnShowPopover = false;
+  return function (node){
+      if(!subBtnShowPopover){
+          subBtnShowPopover = true;
+          node.popover('show');
+          $('.popover').css('left','44px');
+      }else{
+          subBtnShowPopover = false;
+          node.popover('destroy');
+      }
+  }
+})();
 
 function addURL(){
     console.log('addurl');
+    
+    //do not consider animation first
+    // do not consider friendly UI
+    // do it directly
+    var feed_url = $("#nav .popover #input-url").val();
+    $.post("/api/feedsite/", {
+        feed_url : feed_url
+    })
+    .done(function (data) {
+        if (data.rcode == 200) {
+            console.log("done")
+        }
+    });
+    
+    
+    
+    
+    
     $('#subsribe-btn').click();
 }
 
