@@ -24,16 +24,35 @@ class User(Validator):
     setting     = db.ReferenceField("UserSetting")
     type        = "user"
 
+
     @classmethod
     def get_user_by_id(cls,id):
         return cls.objects(id=id).first()
-        
+
     @classmethod
     def get_user_by_nickname(cls,nickname):
         return cls.objects(info__nickname=nickname).first()
 
+    def create_folder(self,folder_name):
+        from user_feed import FeedFolder
+        ff          = FeedFolder(name=folder_name)
+        ff.userid   = self.id
+        ff.safe_save()
+
+    def get_all_folders(self):
+        from user_feed import FeedFolder
+        return FeedFolder.get_folders_by_userid(self.id)
+
+    @property
+    def all_folders(self):
+        return self.get_all_folders()
+
     def get_unread_feeds(self):
         pass
+
+    @property
+    def unread_feeds(self):
+        return self.get_unread_feeds()
 
     def to_dict(self):
         return {"id":str(self.id),
@@ -58,6 +77,14 @@ class BasicUser(db.Document,User):
 class AdvancedUser(db.Document,User):
     pass
 
+#help other class to access user attributes
+class UserAccesser(object):
+    userid      = db.ObjectIdField() # consider two type of user
+
+    @property
+    def user(self):
+        return BasicUser.get_user_by_id(self.userid) \
+               or  AdvancedUser.get_user_by_id(self.userid)
 
 
 

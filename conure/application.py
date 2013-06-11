@@ -21,7 +21,10 @@ def something_before_request():
     if "user" not in session:
         user            = BasicUser.get_user_by_nickname("Guest")
         session["user"] = user.to_dict()
-
+@app.context_processor
+def inject_user():
+    user = session.get('user')
+    return dict(user=user)
 
 import controllers
 

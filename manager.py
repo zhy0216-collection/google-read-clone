@@ -15,13 +15,23 @@ def clean_db():
     conn = MongoClient(config.MONGODB_HOST, config.MONGODB_PORT)
     conn.drop_database(config.MONGODB_DB)
     conn.close()
-    
+
 @manager.command
 def make_guest():
     from conure.model import BasicUser,UserInfo
     b_user    = BasicUser(email="guest",password="guest",info=UserInfo())
     b_user.info.nickname = "Guest"
     b_user.save()
+    b_user.create_folder("Uncategoried")
 
 if __name__ == "__main__":
     manager.run()
+
+
+
+
+
+
+
+
+
