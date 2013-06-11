@@ -38,8 +38,10 @@ class FeedFolder(db.Document,UserAccesser):
     @property
     def unread_feeds(self):
         pass
+        
     @property
     def unread_feeds_counter(self):
+        #100+ not 1000+
         return 0
 
 

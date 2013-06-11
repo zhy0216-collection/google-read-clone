@@ -38,6 +38,10 @@ class FeedSite(db.Document):
             {'fields': ['feed_url'], 'unique': True},
         ]
     }
+    
+    @classmethod
+    def get_feed_items_by_siteid(cls,siteid):
+        return cls.objects(id=siteid).only("feed_items").first()
 
     @classmethod
     def add_from_feed_url(cls,feed_url,parse_immediately=False):

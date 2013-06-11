@@ -7,11 +7,11 @@
 
     <link href="/static/favicon.ico" rel="SHORTCUT ICON">
     <!-- css styles -->
-    <link href="static/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="static/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="static/lib/fontawesome/css/font-awesome.css" rel="stylesheet">
-        <link href="static/lib/todc-bootstrap.css" rel="stylesheet">
-    <link href="static/main.css" rel="stylesheet">
+    <link href="/static/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/lib/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/lib/todc-bootstrap.css" rel="stylesheet">
+    <link href="/static/main.css" rel="stylesheet">
   </head>
 
   <body>
@@ -28,6 +28,7 @@
 
 
           <div id="reader-content" class="span9">
+          {%block reader_content%}
             <div class='row-fluid'>
                 <div id="sub-shower"class='span8'>
                     <span class='muted'>New in your subscriptions</span>
@@ -55,7 +56,7 @@
                     </div>
                 </div>
             </div>
-
+            {%endblock%}
           </div><!--end of  span conent-->
           
         </div>
@@ -66,11 +67,11 @@
 
   </body>
 
-<script src="static/lib/jquery-1.9.1.js"></script>
+<script src="/static/lib/jquery-1.9.1.js"></script>
 <!--<script src="static/lib/jquery.clickout.js"></script>-->
-<script src="static/lib/bootstrap/js/bootstrap.js"></script>
-<script src="static/lib/holder.js"></script>
-<script src="static/popover.js"></script>
-<script src="static/main.js"></script>
+<script src="/static/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/static/lib/holder.js"></script>
+<script src="/static/popover.js"></script>
+<script src="/static/main.js"></script>
 
 </html>

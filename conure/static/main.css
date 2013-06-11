@@ -144,7 +144,23 @@ margin-right: 8px;
     margin-left:0px;
 }
 
-#sub-shower .sub-item{border-left: 1px white solid;}
+#sub-shower .sub-item,#sub-shower .sub-item-show{
+border-left: 1px white solid;
+}
+#sub-shower .sub-item-show{
+    padding-left:15px;
+    padding-right:20px;
+    margin-bottom:40px;
+}
+#sub-shower .reading-item{
+    border-left:solid 1px #4d90f0;
+}
+#sub-shower .tool-btns{
+margin-left: -15px;
+background: #fafafa;
+padding: 5px 20px;
+border-top: 1px solid #ebebeb;
+}
 .popover-content{
     width: 300px;
 }
