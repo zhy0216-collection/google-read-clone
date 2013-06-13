@@ -1,5 +1,5 @@
 {% macro make_site(site) -%}
 <ul class='nav nav-list unstyled subnav'>
-    <li id="{{site.id}}" class="li3"><a href="javascript:go('/feedsite/{{site.id}}');" onclick="active('{{site.id}}')"><img data-src='holder.js/20x20'> <strong>{{site.title}}</strong></a>
+    <li id="{{site.id}}" class="li3"><a href="javascript:go('/feedsite/{{site.id}}');" onclick="active('{{site.id}}')"><img data-src='holder.js/20x20'> <strong>{{site.title}} <small class='muted normal'>({{site.unread_feeds_counter}})</small></strong></a>
 </ul>
 {%- endmacro %}

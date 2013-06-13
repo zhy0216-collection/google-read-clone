@@ -30,7 +30,7 @@ class User(Validator):
     @property
     def nickname(self):
         return self.info.nickname
-    
+
     @classmethod
     def get_user_by_id(cls,id):
         return cls.objects(id=id).first()
@@ -38,8 +38,15 @@ class User(Validator):
     @classmethod
     def get_user_by_nickname(cls,nickname):
         return cls.objects(info__nickname=nickname).first()
-        
+    
+    # TO-DO
+    def has_feedsite(self,feed_url):
+        return False
+
     def add_feed(self,feed_url):
+        from user_feed import Sub
+        if self.has_feedsite(feed_url):
+            return None
         fs  = FeedSite.add_from_feed_url(feed_url,parse_immediately =True)
         self.default_folder.site_list.append(fs)
         self.default_folder.save()
@@ -83,8 +90,8 @@ class UserSetting(db.Document):
 
 class BasicUser(db.Document,User):
     type        = "basic"
-    
-    
+
+
     def upgrade(self):
         pass
 

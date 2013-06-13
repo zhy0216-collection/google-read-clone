@@ -82,6 +82,17 @@ class FeedSite(db.Document):
             feed.save()
             self.feed_items.append(feed)
 
+            
+    
+    @property
+    def unread_feeds_counter(self):
+        # this method is after folder get counter then-> assign to self
+        raise NotImplementedError()
+        
+    @property
+    def get_unread_feeds_counter_by_userid(self,userid):
+        from user_feed import Sub
+        return Sub(userid=userid, feedsite=self).count()
 
     @property
     def domain(self):

@@ -40,7 +40,7 @@
     {%for feed in feedsite.feed_items%}
         <div class="sub-item-show reading-item">
             <h5><a href="{{feed.link}}" class="keep-link">{{feed.title}}</a></h5>
-            <a class="keep-link" href=""><p>{{feed.content|safe}}</p></a>
+            <p>{{feed.content|safe}}</p>
 
             <div class="tool-btns">
                 <a href="javasxript:void(0);" class="btn btn-small"> <i class="icon-star"></i></a>

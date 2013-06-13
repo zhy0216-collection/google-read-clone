@@ -6,6 +6,13 @@ $(function () {
             $("#reader-content").html(tdata);
         });
     });
+    
+    $.router.add("/folder/:folderid", function(data) {
+        $.get("/folder/"+data.folderid).done(function (tdata) {
+            $("#reader-content").html(tdata);
+        });
+    });
+    
 
 
 //window.location.href
