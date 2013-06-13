@@ -1,32 +1,27 @@
 {%extends "main.html"%}
 
+{%block feedsite_toolbar%}
+<ul class="site_tool_bar span9">
+  <a href="#">Home</a> <span class="muted">/</span>
+  <a href="#">Library</a> <span class="muted">/</span>
+</ul>
+{%endblock%}
+
 {%block reader_content%}
 
 <div class='row-fluid'>
+    
     <div id="sub-shower" class='span11'>
-      <ul class="breadcrumb">
-        <li><a href="#">Home</a> <span class="muted">/</span></li>
-        <li><a href="#">Library</a> <span class="muted">/</span></li>
-        <li class="active">Data</li>
-      </ul>
     <div class='row-fluid'>
-    <div class="span9">
+    <div class="span12">
     {%for feed in feedsite.feed_items%}
         <div class="sub-item-show reading-item">
             <h5><a href="{{feed.link}}" class="keep-link">{{feed.title}}</a></h5>
-            <a class="keep-link"href=""><p>{{feed.content|safe}}
-            </p></a>
-            
-              <div class="btn-toolbar tool-btns">
-                <div class="btn-group">
-                  <a href="#" class="btn btn-danger">NEW</a>
-                </div>
-                <div class="btn-group ">
-                  <a href="#" class="btn">All</a>
-                  <a href="#" class="btn">Friends</a>
-                  <a href="#" class="btn">Family</a>
-                </div>
-              </div>
+            <a class="keep-link" href=""><p>{{feed.content|safe}}</p></a>
+
+            <div class="tool-btns">
+                <a href="javasxript:void(0);" class="btn btn-small"> <i class="icon-star"></i></a>
+            </div>
         </div>
     {%endfor%}
     </div>
@@ -35,10 +30,5 @@
 
     </div>
 </div>
-
-
-
-
-
 
 {%endblock%}

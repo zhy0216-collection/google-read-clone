@@ -69,7 +69,7 @@ class FeedSite(db.Document):
         d = feedparser.parse(self.feed_url)
         self.title          = d.feed.title
         self.site_link      = d.feed.link
-        self.last_pub_time  = time_struct_to_datetime(d.feed.published_parsed)
+        self.last_pub_time  = time_struct_to_datetime(d.feed.updated_parsed)
         #to get fav_icon
 
         #parse the feeditem
