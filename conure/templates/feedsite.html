@@ -1,9 +1,32 @@
 {%extends "main.html"%}
 
 {%block feedsite_toolbar%}
-<ul class="site_tool_bar span9">
-  <a href="#">Home</a> <span class="muted">/</span>
-  <a href="#">Library</a> <span class="muted">/</span>
+<ul class="site_tool_bar span8">
+  <div class="btn-group">
+    <button class="btn"><i class="icon-repeat"></i></button>
+  </div>
+  
+  <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      Action
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <!-- dropdown menu links -->
+    </ul>
+  </div>
+  
+  
+  <div class="btn-group">
+    <button class="btn">Action</button>
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <!-- dropdown menu links -->
+    </ul>
+  </div>
+  
 </ul>
 {%endblock%}
 

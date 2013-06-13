@@ -143,6 +143,7 @@ margin-right: 8px;
 
 #sub-shower{
     margin-left:0px;
+    margin-top: 20px;
 }
 
 #sub-shower .sub-item,#sub-shower .sub-item-show{
@@ -156,7 +157,7 @@ border-left: 1px white solid;
 #sub-shower .reading-item{
     border: 1px solid #ddd;
     box-shadow: 0 0 4px #e3e5eb;
-    margin-right: 20PX;
+    margin-right: 25PX;
 }
 #sub-shower .reading-item-active{
     border-left:solid 1px #4d90f0;
@@ -170,6 +171,7 @@ border-top: 1px solid #ebebeb;
 }
 
 #content .site_tool_bar{
+margin-bottom: 0px;
 margin-left: 15px;
 margin-right: 0px;
 border-top: none;
