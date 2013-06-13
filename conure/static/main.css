@@ -176,6 +176,8 @@ margin-left: 15px;
 margin-right: 0px;
 border-top: none;
 border-bottom: 1px solid #ebebeb;
+background: none;
+padding-bottom: 10px;
 }
 .popover-content{
     width: 300px;

@@ -1,5 +1,18 @@
 ﻿
 $(function () {
+
+    $.router.add("/feedsite/:feedsiteid", function(data) {
+        $.get("/feedsite/"+data.feedsiteid).done(function (tdata) {
+            $("#reader-content").html(tdata);
+        });
+    });
+
+
+//window.location.href
+
+
+
+
     var height = $(window).height();
     var max_height = height-100;
     $('#nav-scroll').height(max_height - 30);
@@ -63,6 +76,14 @@ $(function () {
     */
     
 });
+
+
+function go(href){
+    if (window.location.pathname == href){
+      return ;
+    }
+    $.router.go(href);
+}
 
 var active = (function(){
   var current_active = "home";
