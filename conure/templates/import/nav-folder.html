@@ -5,7 +5,7 @@
   <strong>{{folder.name}} <small class='muted normal'>({{folder.unread_feeds_counter}})</small></strong>
   </a>
   {%for site in folder.site_list%}
-    {{s.make_site(site)}}
+    {{s.make_site(site,folder.user.get_unread_feeds_on_feedsite(site))}}
   {%endfor%}
   </li>
 {%- endmacro %}

@@ -17,6 +17,13 @@ def show_feedsite(siteid):
     fs  = FeedSite.get_feed_items_by_siteid(siteid)
     return render_template("feedsite.html",feedsite=fs)
 
+@app.route("/api/feedsite/<siteid>",methods=["GET"])
+def show_feedsite_api(siteid):
+    fs  = FeedSite.get_feed_items_by_siteid(siteid)
+    return render_template("feedsite.html",
+                            feedsite=fs,
+                            API = True)
+    
 
 
 

@@ -73,12 +73,11 @@ class User(Validator):
     def all_folders(self):
         return self.get_all_folders()
 
-    def get_unread_feeds(self):
-        pass
-
-    @property
-    def unread_feeds(self):
-        return self.get_unread_feeds()
+    def get_unread_feeds_on_feedsite(self,feedsite):
+        from user_feed import Sub
+        counter  = Sub.get_unread_counter_by_userid_feedsite(userid=self.id,
+                                                            feedsite=feedsite)
+        return counter
 
     def to_dict(self):
         return {"id":str(self.id),

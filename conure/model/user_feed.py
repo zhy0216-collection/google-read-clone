@@ -6,9 +6,9 @@ from .user import UserAccesser
 
 
 # user <-> sites
-class Sub(db.EmbeddedDocument,UserAccesser):
+class Sub(db.Document,UserAccesser):
     feedsite            = db.ReferenceField("FeedSite")
-    counter             = db.IntField(default=0)
+    #counter             = db.IntField(default=0)
     unread_counter      = db.IntField(default=0)
     start_date          = db.DateTimeField()
 
@@ -19,7 +19,15 @@ class Sub(db.EmbeddedDocument,UserAccesser):
             {'fields': ['userid','feedsite'],'unique': True},
         ]
     }
+    
+    @classmethod
+    def get_sub_by_userid_feedsite(cls,userid=None,feedsite=None):
+        return cls.objects(userid=userid,feedsite=feedsite).first()
 
+    @classmethod
+    def get_unread_counter_by_userid_feedsite(cls,userid=None,feedsite=None):
+        return cls.objects(userid=userid,feedsite=feedsite).only("unread_counter").first().unread_counter
+    
     @classmethod
     def add_sub(cls,userid,feedsite):
         self                    = cls(userid=userid,feedsite=feedsite)
@@ -27,7 +35,8 @@ class Sub(db.EmbeddedDocument,UserAccesser):
         self.feedsite           = feedsite
         temp                    = feedsite.feed_item_counter
         self.unread_counter     = temp if temp <=15 else 15
-        start_date              = feedsite.feed_items[self.unread_counter-1].create_date
+        self.start_date         = feedsite.feed_items[self.unread_counter-1].create_date
+        self.save()
         return self
 
     @classmethod
@@ -43,7 +52,7 @@ class Sub(db.EmbeddedDocument,UserAccesser):
 # for only for view, ignore at first
 class FeedFolder(db.Document,UserAccesser):
     name        = db.StringField(required=True)
-    site_list   = db.ListField(db.EmbeddedDocumentField("Sub"))
+    site_list   = db.ListField(db.ReferenceField("FeedSite"))
     has_open    = db.BooleanField(default=False)
 
     meta = {
@@ -73,11 +82,10 @@ class FeedFolder(db.Document,UserAccesser):
         #100+ not 1000+
         sum_counter     = 0
         for fs in self.site_list:
-            t   = fs.get_unread_feeds_counter_by_userid(self.userid)
-            fs.unread_feeds_counter = t
-            # print "fs.unread_feeds_counter",fs.unread_feeds_counter
+            t   = self.user.get_unread_feeds_on_feedsite(fs)
             sum_counter += t
         return sum_counter if sum_counter <= 100 else "100+"
+
 
 
 #user <-> feeds, means use start a feed;
