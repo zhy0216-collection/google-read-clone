@@ -22,7 +22,7 @@ class Validator(object):
 
 class User(Validator):
     info            = db.EmbeddedDocumentField("UserInfo")
-    setting         = db.ReferenceField("UserSetting")
+    setting         = db.EmbeddedDocumentField("UserSetting")
     default_folder  = db.ReferenceField("FeedFolder")
     type            = "user"
 
@@ -40,18 +40,24 @@ class User(Validator):
         return cls.objects(info__nickname=nickname).first()
     
     # TO-DO
-    def has_feedsite(self,feed_url):
-        return False
+    def has_feedsite(self,feedsite):
+        from user_feed import Sub
+        return Sub.exist_sub(self.id,feedsite)
 
     def add_feed(self,feed_url):
         from user_feed import Sub
-        if self.has_feedsite(feed_url):
+        from feed import FeedSite
+        
+        fs = FeedSite.get_from_feed_url(feed_url)
+        if self.has_feedsite(fs):
             return None
         fs  = FeedSite.add_from_feed_url(feed_url,parse_immediately =True)
         self.default_folder.site_list.append(fs)
         self.default_folder.save()
+        Sub.add_sub(self.id,fs)
+        
         return fs
-
+    #
     def create_folder(self,folder_name):
         from user_feed import FeedFolder
         ff          = FeedFolder(name=folder_name)
@@ -84,7 +90,7 @@ class UserInfo(db.EmbeddedDocument):
     nickname    = db.StringField(required=True)
 
 
-class UserSetting(db.Document):
+class UserSetting(db.EmbeddedDocument):
     theme       = db.StringField(default="google")
 
 

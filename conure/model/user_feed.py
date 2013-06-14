@@ -6,10 +6,11 @@ from .user import UserAccesser
 
 
 # user <-> sites
-class Sub(db.Document,UserAccesser):
-    feedsite        = db.ReferenceField("FeedSite")
-    counter         = db.IntField(default=0)
-    unread_counter  = db.IntField(default=0)
+class Sub(db.EmbeddedDocument,UserAccesser):
+    feedsite            = db.ReferenceField("FeedSite")
+    counter             = db.IntField(default=0)
+    unread_counter      = db.IntField(default=0)
+    start_date          = db.DateTimeField()
 
     meta = {
         'allow_inheritance': False,
@@ -18,13 +19,22 @@ class Sub(db.Document,UserAccesser):
             {'fields': ['userid','feedsite'],'unique': True},
         ]
     }
-    
+
     @classmethod
     def add_sub(cls,userid,feedsite):
-        self.userid     = userid
-        self.feedsite   = feedsite
-        self.save()
+        self                    = cls(userid=userid,feedsite=feedsite)
+        self.userid             = userid
+        self.feedsite           = feedsite
+        temp                    = feedsite.feed_item_counter
+        self.unread_counter     = temp if temp <=15 else 15
+        start_date              = feedsite.feed_items[self.unread_counter-1].create_date
         return self
+
+    @classmethod
+    def exist_sub(cls,userid=None,feedsite=None):
+        return cls.objects(userid=userid,feedsite=feedsite).first() is not None
+
+
 
 
 # all user sub subscript is in uncategoried folder
@@ -33,7 +43,7 @@ class Sub(db.Document,UserAccesser):
 # for only for view, ignore at first
 class FeedFolder(db.Document,UserAccesser):
     name        = db.StringField(required=True)
-    site_list   = db.ListField(db.ReferenceField("FeedSite"))
+    site_list   = db.ListField(db.EmbeddedDocumentField("Sub"))
     has_open    = db.BooleanField(default=False)
 
     meta = {
@@ -63,8 +73,9 @@ class FeedFolder(db.Document,UserAccesser):
         #100+ not 1000+
         sum_counter     = 0
         for fs in self.site_list:
-            t   = fs.get_unread_feeds_counter_by_userid(userid)
+            t   = fs.get_unread_feeds_counter_by_userid(self.userid)
             fs.unread_feeds_counter = t
+            # print "fs.unread_feeds_counter",fs.unread_feeds_counter
             sum_counter += t
         return sum_counter if sum_counter <= 100 else "100+"
 

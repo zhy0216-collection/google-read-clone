@@ -16,6 +16,7 @@ class Feed(db.Document):
     meta = {
         'allow_inheritance': False,
         'index_types': False,
+        'ordering': ['-create_date']
     }
 
     def is_newer_than(self,tdate):
@@ -38,7 +39,7 @@ class FeedSite(db.Document):
             {'fields': ['feed_url'], 'unique': True},
         ]
     }
-    
+
     @classmethod
     def get_feed_items_by_siteid(cls,siteid):
         return cls.objects(id=siteid).only("feed_items").first()
@@ -82,17 +83,9 @@ class FeedSite(db.Document):
             feed.save()
             self.feed_items.append(feed)
 
-            
-    
     @property
-    def unread_feeds_counter(self):
-        # this method is after folder get counter then-> assign to self
-        raise NotImplementedError()
-        
-    @property
-    def get_unread_feeds_counter_by_userid(self,userid):
-        from user_feed import Sub
-        return Sub(userid=userid, feedsite=self).count()
+    def feed_item_counter(self):
+        return len(self.feed_items)
 
     @property
     def domain(self):
