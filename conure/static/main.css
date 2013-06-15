@@ -259,10 +259,12 @@ background-image: -moz-radial-gradient(top,ellipse farthest-side,rgba(0,0,0,.3),
     font-weight: normal;
 }
 
-.bold, .unread-item{
+.bold{
     font-weight: bold;
 }
-
+.unread-item{
+opacity: 0.6;
+}
 
 
 

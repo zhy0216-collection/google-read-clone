@@ -2,7 +2,11 @@
 {% macro make_folder(folder) -%}
 <li id='_sub_news'class="li2"><a href="javascript:void(0)" onclick="active('_sub_news')"><i class='icon-caret-down unfold'></i>
   <i class='icon-folder-open icon-large'></i>
-  <strong>{{folder.name}} <small class='muted normal fold-counter'>({{folder.unread_feeds_counter}})</small></strong>
+  <strong>{{folder.name}}
+    {%if folder.unread_feeds_counter%}
+    <small class='muted normal fold-counter'>({{folder.unread_feeds_counter}})</small>
+    {%endif%}
+  </strong>
   </a>
   {%for site in folder.site_list%}
     {{s.make_site(site,folder.user.get_unread_feeds_on_feedsite(site))}}
