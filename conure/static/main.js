@@ -3,7 +3,11 @@ $(function () {
 
     $.router.add("/feedsite/:feedsiteid", function(data) {
         $.get("/api/feedsite/"+data.feedsiteid).done(function (tdata) {
-            $("#reader-content").html(tdata);
+            var $rc   = $('#reader-content');
+            $rc.unbind("scroll");
+            $rc.scrollTop(0);
+            $rc.html(tdata);
+            $rc.scroll(read_content_scroll());
         });
     });
     
@@ -34,42 +38,7 @@ $(function () {
     });
     
     
-    $('#reader-content').scroll((function(){
-        var cur_reading_item = null;
-        var $read_content = $("#reader-content");
-        var _top          = $read_content.offset().top;
-        var height        = $read_content.height();
-        var half_height   = (_top+height)/2;
-        
-        return function(){
-          var on_top        = false;
-          var $item         = $(".sub-item-show");
-          if (cur_reading_item==null){
-              cur_reading_item = $item.first();
-              on_top = true;
-          }
-          
-          console.log("half_height:");
-          console.log(half_height);
-          for(var i=0,max=$item.length; i < max; i++){
-              if(on_top){
-                break;
-              }
-              var t_top     = $item.offset().top; 
-              var bottom  = t_top + $item.height();
-              if(half_height >= t_top && half_height < bottom){
-                if(cur_reading_item != null){
-                  cur_reading_item.removeClass("reading-item-active");
-                }
-                cur_reading_item = $item.first();
-                break;
-              }
-              $item = $item.next()
-          }
-          cur_reading_item.addClass("reading-item-active");
-        
-        }
-    })());
+    $('#reader-content').scroll(read_content_scroll());
     
     
     
@@ -123,6 +92,43 @@ $(function () {
     */
     
 });
+
+var read_content_scroll = function(){
+    var cur_reading_item = null;
+    var $read_content = $("#reader-content");
+    var _top          = $read_content.offset().top;
+    var height        = $read_content.height();
+    var half_height   = (_top+height)/2-100;
+    
+    return function(){
+      var on_top        = false;
+      var $item         = $(".sub-item-show");
+      if (cur_reading_item==null){
+          cur_reading_item = $item.first();
+          on_top = true;
+      }
+      
+      console.log("half_height:");
+      console.log(half_height);
+      for(var i=0,max=$item.length; i < max; i++){
+          if(on_top){
+            break;
+          }
+          var t_top     = $item.offset().top; 
+          var bottom  = t_top + $item.height();
+          if(half_height >= t_top && half_height < bottom){
+            if(cur_reading_item != null){
+              cur_reading_item.removeClass("reading-item-active");
+            }
+            cur_reading_item = $item.first();
+            break;
+          }
+          $item = $item.next()
+      }
+      cur_reading_item.addClass("reading-item-active");
+    
+    }
+}
 
 
 function go(href){

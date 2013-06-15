@@ -13,6 +13,8 @@ class Feed(db.Document):
     summary             = db.StringField()
     create_date         = db.DateTimeField() #
 
+    feedsite            = db.ReferenceField("FeedSite")
+
     meta = {
         'allow_inheritance': False,
         'index_types': False,
@@ -30,7 +32,8 @@ class FeedSite(db.Document):
     fav_icon            = db.StringField() # url->need site_link
     last_pub_time       = db.DateTimeField() #the last feeditem's time
 
-    feed_items          = db.ListField(db.ReferenceField(Feed))
+    feed_items          = db.SortedListField(db.ReferenceField("Feed"),
+                                             ordering="-create_date")
 
     meta = {
         'allow_inheritance': False,
@@ -74,12 +77,13 @@ class FeedSite(db.Document):
         #to get fav_icon
 
         #parse the feeditem
-        for entry in d.entries:
+        for entry in d.entries[::-1]:
             feed                = Feed(title=entry.title)
             feed.link           = entry.link
             feed.content        = entry.description
             feed.summary        = entry.summary
             feed.create_date    = time_struct_to_datetime(entry.published_parsed)
+            feed.feedsite       = self
             feed.save()
             self.feed_items.append(feed)
 

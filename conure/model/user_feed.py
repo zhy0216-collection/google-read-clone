@@ -96,6 +96,7 @@ class StarFeed(db.Document,UserAccesser):
 
 #user <-> feeds, means user has read the feed
 class ReadFeed(db.Document,UserAccesser):
-    pass
+    feed            = db.ReferenceField("Feed")
+    unread          = db.BooleanField(default=True)
 
 

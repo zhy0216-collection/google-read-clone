@@ -39,10 +39,13 @@ class User(Validator):
     def get_user_by_nickname(cls,nickname):
         return cls.objects(info__nickname=nickname).first()
     
-    # TO-DO
+    #
     def has_feedsite(self,feedsite):
         from user_feed import Sub
         return Sub.exist_sub(self.id,feedsite)
+        
+    def has_read_feedsite(self,feedsite):
+        pass
 
     def add_feed(self,feed_url):
         from user_feed import Sub
