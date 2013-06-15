@@ -29,22 +29,21 @@ $(function () {
     });
 
     $(document).on("click","[feedid]",function(){
-        var $this   = $(this);
-        var $rc     = $('#reader-content');
-        $(".reading-item-active",$rc).removeClass("reading-item-active");
-        $rc.unbind("scroll");
-        $this.addClass("reading-item-active");
-        if($this.hasClass("unread-item")){
-          $this.removeClass("unread-item");
-          //reduce feedsite count..
-        }
-        // console.log("$this.offset().top");
-        // console.log($this.offset().top);
-        $rc.animate({ scrollTop:($rc.scrollTop()+$this.offset().top-81)});
-
-        setTimeout(function(){
-          $rc.scroll(read_content_scroll($this));
-        },300);
+        scroll_top(this);
+    });
+    
+    $("html").on("keydown",function(e){
+       
+       if(e.keyCode == 32){
+           killevent(e);
+           var active_item = $('#reader-content .reading-item-active');
+           active_item.removeClass("reading-item-active");
+           console.log("active_item");
+           console.log(active_item);
+           console.log("active_item next");
+           console.log(active_item.next());
+           scroll_top(active_item.next());
+       }
     });
 
 //window.location.href
@@ -117,6 +116,25 @@ $(function () {
     */
 
 });
+
+function scroll_top(node){
+    var $this   = $(node);
+    var $rc     = $('#reader-content');
+    $(".reading-item-active",$rc).removeClass("reading-item-active");
+    $rc.unbind("scroll");
+    $this.addClass("reading-item-active");
+    if($this.hasClass("unread-item")){
+      $this.removeClass("unread-item");
+      //reduce feedsite count..
+    }
+    // console.log("$this.offset().top");
+    // console.log($this.offset().top);
+    $rc.animate({ scrollTop:($rc.scrollTop()+$this.offset().top-81)});
+
+    setTimeout(function(){
+      $rc.scroll(read_content_scroll($this));
+    },300);
+}
 
 var read_content_scroll = function(cur_item){
     var cur_reading_item = cur_item || null;
