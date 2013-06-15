@@ -36,19 +36,19 @@
 {%block reader_content%}
 
 <div class='row-fluid'>
-    
     <div id="sub-shower" class='span11'>
     <div class='row-fluid'>
     <div class="span12">
     {%for feed in feeds%}
-        <div class="sub-item-show reading-item {%if not session['user'].has_read(feed)%}unread-item{%endif%}">
-            <h5><a href="{{feed.link}}" class="keep-link">{{feed.title}}</a></h5>
-            <p>{{feed.content|safe}}</p>
-            <div class="tool-btns">
-                <a href="javasxript:void(0);" class="btn btn-small"> <i class="icon-star"></i></a>
-            </div>
-        </div>
+      <div feedid="{{feed.id}}" class="sub-item-show reading-item {%if not session['user'].has_read(feed)%}unread-item{%endif%}">
+          <h5><a href="{{feed.link}}" class="keep-link">{{feed.title}}</a></h5>
+          <p>{{feed.content|safe}}</p>
+          <div class="tool-btns">
+              <a href="javasxript:void(0);" class="btn btn-small"> <i class="icon-star"></i></a>
+          </div>
+      </div>
     {%endfor%}
+    <div style="height:500px;"></div>
     </div>
     </div><!--end of row-->
     {%include "footer.html"%}

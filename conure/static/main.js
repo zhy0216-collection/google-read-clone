@@ -1,6 +1,7 @@
 ﻿
 $(function () {
 
+//router
     $.router.add("/feedsite/:feedsiteid", function(data) {
     
         active(data.feedsiteid);
@@ -20,7 +21,26 @@ $(function () {
     });
     
 
+    
+    $(document).on("click",".keep-link",function(e){
+        // e.stopPropagation();
+        e.preventDefault();
+        window.open($(this).attr("href"));
+    });
 
+    $(document).on("click","[feedid]",function(){
+        var $this   = $(this);
+        var $rc     = $('#reader-content');
+        $this.addClass("reading-item-active");
+        if($this.hasClass("unread-item")){
+          $this.removeClass("unread-item");
+          //reduce feedsite count..
+        }
+        console.log("$this.offset().top");
+        console.log($this.offset().top);
+        $rc.scrollTop($rc.scrollTop()+$this.offset().top-81);
+    });
+    
 //window.location.href
 
 
