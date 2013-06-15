@@ -255,11 +255,11 @@ background-image: -moz-radial-gradient(top,ellipse farthest-side,rgba(0,0,0,.3),
 
 
 
-.normal{
+.normal, .read-item{
     font-weight: normal;
 }
 
-.bold{
+.bold, .unread-item{
     font-weight: bold;
 }
 

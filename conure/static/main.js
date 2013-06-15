@@ -93,8 +93,8 @@ $(function () {
     
 });
 
-var read_content_scroll = function(){
-    var cur_reading_item = null;
+var read_content_scroll = function(cur_item){
+    var cur_reading_item = cur_item || null;
     var $read_content = $("#reader-content");
     var _top          = $read_content.offset().top;
     var height        = $read_content.height();
@@ -126,7 +126,7 @@ var read_content_scroll = function(){
           $item = $item.next()
       }
       cur_reading_item.addClass("reading-item-active");
-    
+      cur_reading_item.removeClass("unread-item");
     }
 }
 

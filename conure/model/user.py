@@ -44,8 +44,8 @@ class User(Validator):
         from user_feed import Sub
         return Sub.exist_sub(self.id,feedsite)
         
-    def has_read_feedsite(self,feedsite):
-        pass
+    def has_read(self,feed=None):
+        return False
 
     def add_feed(self,feed_url):
         from user_feed import Sub
