@@ -2,6 +2,8 @@
 $(function () {
 
     $.router.add("/feedsite/:feedsiteid", function(data) {
+    
+        active(data.feedsiteid);
         $.get("/api/feedsite/"+data.feedsiteid).done(function (tdata) {
             var $rc   = $('#reader-content');
             $rc.unbind("scroll");

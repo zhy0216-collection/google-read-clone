@@ -35,7 +35,7 @@ class Sub(db.Document,UserAccesser):
         self.feedsite           = feedsite
         temp                    = feedsite.feed_item_counter
         self.unread_counter     = temp if temp <=15 else 15
-        self.start_date         = feedsite.feed_items[self.unread_counter-1].create_date
+        self.start_date         = feedsite.get_last_feed(skip=self.unread_counter-1).create_date
         self.save()
         return self
 

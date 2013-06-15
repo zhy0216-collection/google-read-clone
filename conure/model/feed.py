@@ -24,6 +24,12 @@ class Feed(db.Document):
     def is_newer_than(self,tdate):
         pass
 
+    @classmethod
+    def get_feed_items_by_siteid(cls,siteid,limit=15,offset=0):
+        start       = offset*limit
+        end         = offset*limit + limit
+        return cls.objects(feedsite=siteid)[start:end]
+
 
 class FeedSite(db.Document):
     feed_url            = db.StringField(required=True) # the user input
@@ -31,9 +37,6 @@ class FeedSite(db.Document):
     title               = db.StringField()
     fav_icon            = db.StringField() # url->need site_link
     last_pub_time       = db.DateTimeField() #the last feeditem's time
-
-    feed_items          = db.SortedListField(db.ReferenceField("Feed"),
-                                             ordering="-create_date")
 
     meta = {
         'allow_inheritance': False,
@@ -43,9 +46,7 @@ class FeedSite(db.Document):
         ]
     }
 
-    @classmethod
-    def get_feed_items_by_siteid(cls,siteid):
-        return cls.objects(id=siteid).only("feed_items").first()
+
 
     @classmethod
     def add_from_feed_url(cls,feed_url,parse_immediately=False):
@@ -63,6 +64,9 @@ class FeedSite(db.Document):
     @classmethod
     def get_from_feed_url(cls,feed_url):
         return cls.objects(feed_url=feed_url).first()
+        
+    def get_last_feed(self,skip=0):
+        return Feed.objects(feedsite=self).skip(skip).first()
 
     def refresh(self):
         print "refresh"
@@ -74,6 +78,7 @@ class FeedSite(db.Document):
         self.title          = d.feed.title
         self.site_link      = d.feed.link
         self.last_pub_time  = time_struct_to_datetime(d.feed.updated_parsed)
+        self.save()
         #to get fav_icon
 
         #parse the feeditem
@@ -85,11 +90,11 @@ class FeedSite(db.Document):
             feed.create_date    = time_struct_to_datetime(entry.published_parsed)
             feed.feedsite       = self
             feed.save()
-            self.feed_items.append(feed)
 
     @property
     def feed_item_counter(self):
-        return len(self.feed_items)
+        
+        return Feed.objects(feedsite=self).count()
 
     @property
     def domain(self):
