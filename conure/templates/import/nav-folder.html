@@ -9,8 +9,10 @@
     {%endif%}
   </strong>
   </a>
+  <ul class="nav nav-list unstyled">
   {%for site in folder.site_list%}
     {{s.make_site(site,folder.user.get_unread_feeds_on_feedsite(site))}}
   {%endfor%}
+  </ul>
   </li>
 {%- endmacro %}

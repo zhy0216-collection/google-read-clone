@@ -22,6 +22,10 @@ $(function () {
 
 //some event binding
 
+      $(".folder").sortable();
+      $(".feedsite").sortable();
+
+
     $(document).on("click",".keep-link",function(e){
         // e.stopPropagation();
         e.preventDefault();

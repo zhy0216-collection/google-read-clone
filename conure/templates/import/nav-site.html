@@ -1,10 +1,12 @@
 {% macro make_site(site,site_unread) -%}
-<ul class='nav nav-list unstyled subnav'>
-    <li id="{{site.id}}" siteid="{{site.id}}" class="li3"><a href="javascript:go('/feedsite/{{site.id}}');"><img data-src='holder.js/20x20'> <strong>{{site.title}}
-    {%if site_unread%}
-    <small class='muted normal site-counter'>({{site_unread}})</small>
-    {%endif%}
-    </strong></a>
-    </li>
-</ul>
+<li id="{{site.id}}" siteid="{{site.id}}" class="li3 feedsite">
+    <a href="javascript:go('/feedsite/{{site.id}}');">
+      <img data-src='holder.js/20x20'> 
+      <strong>{{site.title}}
+        {%if site_unread%}
+        <small class='muted normal site-counter'>({{site_unread}})</small>
+        {%endif%}
+      </strong>
+    </a>
+</li>
 {%- endmacro %}

@@ -10,7 +10,7 @@
   <li class="divider"></li>
 
    <li id="subscription"class='li1'><a href="javascript:void(0)" onclick="active('subscription')"><i class='icon-caret-down unfold'></i><strong>Subscriptions</strong></a>
-      <ul class='nav nav-list unstyled subnav'>
+      <ul class='nav nav-list unstyled subnav folder'>
         {% import 'import/nav-folder.html' as f %}
 
         {%for tfolder in user.all_folders%}

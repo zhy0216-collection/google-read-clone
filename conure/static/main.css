@@ -7,6 +7,16 @@ body{
 position: relative;
 }
 
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
 ::-webkit-scrollbar {
 height: 16px;
 width: 10px;
@@ -76,13 +86,23 @@ padding: 10px 0;
 padding-left: 44px;
 padding-right: 24px;
 }
+.nav li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+.nav li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+
+
 .nav-list{
 margin-left: -44px;
 }
-.nav-list > li > a{
+.nav-list  li  a{
 padding-left:44px;
 }
-.nav-list > .active > a, .nav-list > .active > a:hover{
+.nav-list  >.active >a, .nav-list > .active > a:hover{
 padding-left:41px;
 }
 .nav-list .divider{
@@ -92,37 +112,34 @@ margin-right: -15px;
 }
 .nav-header{
     height:20px;
-    
 }
-#subscription .subnav{
-padding:0px;
-padding-left:10px;
+.folder,.feedsite{
+    padding-left:0;
+    padding-right:0;
 }
-#subscription .li2{
+
+.folder{
 margin-left: -10px;
 }
-#subscription .li2 >a{
+
+.folder >.li2 > a {
 padding-left: 54px;
 }
-#subscription .nav-list >.active > a, #subscription .nav-list > .active >a:hover{
+#subscription .folder >.active > a, #subscription .folder > .active >a:hover{
 padding-left: 51px;
 }
 
-#subscription .subnav .subnav{
-padding:0px;
-padding-left:45px;
+#subscription .folder .feedsite{
+margin-left: -15px;
 }
-
-#subscription .li3{
-margin-left: -45px;
-}
-#subscription .li3 >a{
-padding-left: 89px;
-}
-
-#subscription .nav-list .nav-list >.active > a, 
-#subscription .nav-list .nav-list > .active >a:hover{
+#subscription .folder .feedsite > a, 
+#subscription .folder .feedsite >a:hover{
 padding-left: 86px;
+}
+
+#subscription .folder .feedsite.active > a, 
+#subscription .folder .feedsite.active >a:hover{
+padding-left: 83px;
 }
 
 #setting-btn{
