@@ -41,7 +41,7 @@
     <div class="span12">
     {%for feed in feeds%}
       <div feedid="{{feed.id}}" class="sub-item-show reading-item {%if not session['user'].has_read(feed)%}unread-item{%endif%}">
-          <h5><a href="{{feed.link}}" class="keep-link">{{feed.title}}</a></h5>
+          <h5><a href="{{feed.link}}" class="keep-link blue-link">{{feed.title}}</a></h5>
           <p>{{feed.content|safe}}</p>
           <div class="tool-btns">
               <a href="javasxript:void(0);" class="btn btn-small"> <i class="icon-star"></i></a>

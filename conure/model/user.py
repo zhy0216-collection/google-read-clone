@@ -44,8 +44,25 @@ class User(Validator):
         from user_feed import Sub
         return Sub.exist_sub(self.id,feedsite)
 
+    def read_feed(self,feed):
+        from user_feed import ReadFeed,Sub
+        rf  = ReadFeed.get_readfeed_by_feed_and_userid(feed=feed,
+                                        userid=self.id)
+        if rf.unread:
+            sub  = Sub.get_sub_by_userid_feedsite(userid=self.id,feedsite=feed.feedsite)
+            sub.unread_counter -=1
+            sub.save()
+        rf.unread = False
+        rf.safe_save()
+
+
+    def unread_feed(self,feed):
+        pass
+
     def has_read(self,feed=None):
-        return False
+        from user_feed import ReadFeed
+        rf  = ReadFeed.get_readfeed_by_feed_and_userid(feed=feed,userid=self.id)
+        return not rf.unread
 
     def add_feed(self,feed_url):
         from user_feed import Sub
