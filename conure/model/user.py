@@ -38,19 +38,19 @@ class User(Validator):
     @classmethod
     def get_user_by_nickname(cls,nickname):
         return cls.objects(info__nickname=nickname).first()
-    
+
     #
     def has_feedsite(self,feedsite):
         from user_feed import Sub
         return Sub.exist_sub(self.id,feedsite)
-        
+
     def has_read(self,feed=None):
         return False
 
     def add_feed(self,feed_url):
         from user_feed import Sub
         from feed import FeedSite
-        
+
         fs = FeedSite.get_from_feed_url(feed_url)
         if self.has_feedsite(fs):
             return None
@@ -58,7 +58,7 @@ class User(Validator):
         self.default_folder.site_list.append(fs)
         self.default_folder.save()
         Sub.add_sub(self.id,fs)
-        
+
         return fs
     #
     def create_folder(self,folder_name):

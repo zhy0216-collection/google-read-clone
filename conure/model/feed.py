@@ -20,6 +20,10 @@ class Feed(db.Document):
         'index_types': False,
         'ordering': ['-create_date']
     }
+    
+    @classmethod
+    def get_feed_by_id(cls,feedid):
+        return cls.objects(id=feedid).first()
 
     def is_newer_than(self,tdate):
         pass

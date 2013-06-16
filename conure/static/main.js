@@ -122,6 +122,20 @@ $(function () {
 
 });
 
+function read_item_post(feedid){
+    
+    $.ajax({
+        type: "PUT",
+        contentType: "application/json",
+        url: "/api/feed/"+feedid,
+        data: JSON.stringify({"unread": false}),
+        dataType: "json"
+    }).done(function (tdata) {
+        console.log(tdata);
+    });
+
+}
+
 function scroll_top(node){
     var $this   = $(node);
     var $rc     = $('#reader-content');
@@ -131,6 +145,7 @@ function scroll_top(node){
     if($this.hasClass("unread-item")){
       $this.removeClass("unread-item");
       reduce_unread_counter();
+      read_item_post($this.attr("feedid"));
     }
     // console.log("$this.offset().top");
     // console.log($this.offset().top);
