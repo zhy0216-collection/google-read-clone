@@ -3,7 +3,7 @@
 import logging
 import datetime as dt
 
-DEBUG_MODE = False
+DEBUG_MODE = True
 TESTING    = False
 LESS_DEBUG = False
 JS_DEBUG   = False
